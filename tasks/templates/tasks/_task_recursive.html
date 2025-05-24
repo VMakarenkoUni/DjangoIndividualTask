@@ -1,0 +1,24 @@
+{% comment %} tasks/templates/tasks/_task_recursive.html {% endcomment %}
+<li class="list-group-item {% if task.subtasks.all %}list-group-item-primary{% endif %}">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ task.title }}</h5>
+        <small>Статус: {{ task.get_status_display }}</small>
+    </div>
+    {% if task.description %}
+        <p class="mb-1">{{ task.description|linebreaksbr }}</p>
+    {% endif %}
+    <small>Створено: {{ task.created_at|date:"d.m.Y H:i" }}</small>
+    <div class="mt-2">
+        {# <a href="#" class="btn btn-sm btn-outline-success">Редагувати</a> #}
+        {# <a href="#" class="btn btn-sm btn-outline-info">Додати підзавдання</a> #}
+    </div>
+
+    {% if task.subtasks.all %}
+        <ul class="list-group mt-3">
+            <h6 class="ms-3">Підзавдання:</h6>
+            {% for subtask in task.subtasks.all %}
+                {% include "tasks/_task_recursive.html" with task=subtask %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

@@ -1,0 +1,20 @@
+{% extends "tasks/base.html" %}
+
+{% block title %}Список проєктів{% endblock %}
+
+{% block content %}
+<h1>Список проєктів</h1>
+<a href="{% url 'create_project' %}" class="btn btn-primary mb-3">Створити новий проєкт</a>
+{% if projects %}
+    <div class="list-group">
+        {% for project in projects %}
+        <a href="{% url 'project_detail' project.id %}" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">{{ project.name }}</h5>
+            <small>Створено: {{ project.created_at|date:"d.m.Y H:i" }}</small>
+        </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Ще немає жодного проєкту. <a href="{% url 'create_project' %}">Створити перший?</a></p>
+{% endif %}
+{% endblock %}
