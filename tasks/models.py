@@ -32,24 +32,17 @@ class Task(models.Model):
     )
     project = models.ForeignKey(
         Project,
-        on_delete=models.CASCADE, # Якщо видаляється проєкт, видаляються і всі його завдання
-        related_name='tasks', # Дозволяє звертатися до завдань з об'єкту проєкту: project.tasks.all()
+        on_delete=models.CASCADE,
+        related_name='tasks',
         verbose_name="Проєкт"
     )
-    # assignee = models.ForeignKey(
-    #     User,
-    #     on_delete=models.SET_NULL, # Якщо користувач видаляється, завдання залишається без виконавця
-    #     null=True,
-    #     blank=True,
-    #     related_name='assigned_tasks',
-    #     verbose_name="Виконавець"
-    # )
+
     parent_task = models.ForeignKey(
-        'self', # Посилання на цю ж модель (Task)
-        on_delete=models.CASCADE, # Якщо видаляється батьківське завдання, видаляються і дочірні
+        'self',
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
-        related_name='subtasks', # Дозволяє звертатися до підзавдань: task.subtasks.all()
+        related_name='subtasks',
         verbose_name="Батьківське завдання"
     )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата створення")
@@ -61,4 +54,4 @@ class Task(models.Model):
     class Meta:
         verbose_name = "Завдання"
         verbose_name_plural = "Завдання"
-        ordering = ['created_at'] # Сортування за замовчуванням
+        ordering = ['created_at']

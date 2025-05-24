@@ -5,5 +5,4 @@ class TasksConfig(AppConfig):
     name = 'tasks'
 
     def ready(self):
-        # Імпортуємо сигнали ТІЛЬКИ тут, всередині методу ready()
         import tasks.signals

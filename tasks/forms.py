@@ -4,7 +4,7 @@ from .models import Project, Task
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name'] # Які поля з моделі Project показувати у формі
+        fields = ['name']
         labels = {
             'name': 'Назва проєкту'
         }
@@ -15,9 +15,6 @@ class ProjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        # Поки що не включаємо 'project' та 'parent_task' сюди,
-        # їх ми будемо обробляти у view, або передавати прихованими.
-        # 'assignee' теж поки пропустимо для простоти.
         fields = ['title', 'description', 'status']
         labels = {
             'title': 'Назва завдання',
